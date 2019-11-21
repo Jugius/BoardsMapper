@@ -5,7 +5,7 @@ namespace BoardsMapper.DataManager
 {
     public class WriterBuilder
     {
-        public IHtmlWriter Build(WriteParameters parameters)
+        public IWriter Build(WriteParameters parameters)
         {
             if (parameters is HtmlWriteParameters)
             {

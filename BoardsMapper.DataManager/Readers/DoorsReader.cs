@@ -34,7 +34,7 @@ namespace BoardsMapper.DataManager.Readers
                 da.Fill(table);
                 con.Close();
             }
-            var boards = table.Where(a => !a.deleted).Select(a => new Board_Doors(a)).Where(a => !string.IsNullOrEmpty(a.Address.Street)).DistinctBy(a => a.ID);
+            var boards = table.Select(a => new Board_Doors(a)).Where(a => !string.IsNullOrEmpty(a.Address.Street)).DistinctBy(a => a.ID);
             if (e.Argument == null)
             {
                 e.Result = boards.Select(a => a as IBoard).ToList();

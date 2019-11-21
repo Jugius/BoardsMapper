@@ -71,7 +71,7 @@
     <Compile Include="Readers\DoorsReader.cs" />
     <Compile Include="WriteParameters.cs" />
     <Compile Include="WriterBuilder.cs" />
-    <Compile Include="Writers\IHtmlWriter.cs" />
+    <Compile Include="Writers\IWriter.cs" />
     <Compile Include="Writers\KmlWriter.cs" />
     <Compile Include="Writers\SimpleHtmlWriter.cs" />
   </ItemGroup>

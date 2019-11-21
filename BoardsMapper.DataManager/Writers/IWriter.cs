@@ -1,7 +1,7 @@
 ﻿
 namespace BoardsMapper.DataManager.Writers
 {
-    public interface IHtmlWriter
+    public interface IWriter
     {
         string Write(WriteParameters p);
     }

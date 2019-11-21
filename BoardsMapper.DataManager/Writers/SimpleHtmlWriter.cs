@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BoardsMapper.DataManager.Writers
 {
-    internal class SimpleHtmlWriter : IHtmlWriter
+    internal class SimpleHtmlWriter : IWriter
     {
         public string Write(WriteParameters parameters)
         {

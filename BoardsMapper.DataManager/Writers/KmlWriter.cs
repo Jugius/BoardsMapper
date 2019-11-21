@@ -10,7 +10,7 @@ using SharpKml.Engine;
 
 namespace BoardsMapper.DataManager.Writers
 {
-    class KmlWriter : IHtmlWriter
+    class KmlWriter : IWriter
     {
         public string Write(WriteParameters parameters)
         {
