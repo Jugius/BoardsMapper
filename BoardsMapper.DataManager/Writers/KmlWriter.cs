@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SharpKml.Base;
 using SharpKml.Dom;
 using SharpKml.Engine;
@@ -32,13 +30,22 @@ namespace BoardsMapper.DataManager.Writers
                 {
                     var placemark = new Placemark();
                     var c = p.ColorsProvider.GetBoardColor(b);
-                    placemark.Name = b.Address.Street;
+                    string name = string.IsNullOrEmpty(b.Code) ? (b.Address.ToShortString()) : (b.Code + " " + b.Address.ToShortString());
+                    placemark.Name = name;
                     var styleId = styles.First(a => a.Id == $"colorIcon_{c.R}_{c.G}_{c.B}").Id;
                     placemark.StyleUrl = new Uri($"#{styleId}", UriKind.Relative);
                     placemark.Geometry = new SharpKml.Dom.Point
                     {
                         Coordinate = new Vector(b.Location.Latitude, b.Location.Longitude)
                     };
+
+                    string description = $"{b.Type} {b.Size}, сторона {b.Side}";
+                    if (b.Metrics != null && b.Metrics.OTS != 0)
+                        description += $"<br>OTS: {b.Metrics.OTS} 000, GRP: {b.Metrics.GRP}";
+                    description += $"<img src=\"{b.Photo.ToString()}\" height =\"300px\" width=\"auto\"/>";                    
+                    description = $"<![CDATA[{description}]]>";
+                    placemark.Description = new Description { Text = description };
+
                     f.AddFeature(placemark);
                 }
                 document.AddFeature(f);
@@ -52,7 +59,7 @@ namespace BoardsMapper.DataManager.Writers
             KmlFile kml = KmlFile.Create(document, false);
             KmzFile k = KmzFile.Create(kml);
             
-            string path = p.FilePath;// @"c:\Users\a.slusarev\Desktop\output.kml";
+            string path = p.FilePath;
             if (System.IO.File.Exists(path))
                 System.IO.File.Delete(path);
             using (var stream = System.IO.File.OpenWrite(path))

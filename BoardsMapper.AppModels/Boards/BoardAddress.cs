@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BoardsMapper.AppModels.Boards
+﻿namespace BoardsMapper.AppModels.Boards
 {
     public class BoardAddress
     {
@@ -17,6 +11,13 @@ namespace BoardsMapper.AppModels.Boards
         public string FormattedAddress
         {
             get { return $"{City}, {Street}, {StreetNumber}".TrimEnd(','); }
+        }
+
+        public string ToShortString()
+        {
+            if (string.IsNullOrEmpty(StreetNumber))
+                return Street;
+            return Street + ", " + StreetNumber;
         }
     }
 }
